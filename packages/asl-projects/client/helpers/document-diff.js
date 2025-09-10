@@ -20,14 +20,26 @@ export const findSteps = (version, previousProtocols, protocolId, stepId, fieldN
   }
 };
 
+const getText = (nodes) => {
+  let tempText = '';
+  nodes?.forEach((element) => {
+    if (element?.object === 'block') {
+      tempText += getText(element?.nodes);
+    } else if (element?.object === 'text') {
+      tempText += element.text;
+    }
+  });
+  return tempText;
+};
+
 export const getChanges = (current, before, granularity = 'word') => {
   let currentText = '';
   let beforeText = '';
   if (Array.isArray(current?.document?.nodes)) {
-    current.document.nodes.forEach((element) => currentText += element?.nodes[0]?.text);
+    currentText = getText(current.document.nodes);
   }
   if (Array.isArray(before?.document?.nodes)) {
-    before.document.nodes.forEach((element) => beforeText += element?.nodes[0]?.text);
+    beforeText = getText(before.document.nodes);
   }
   const diffs = diffWords(normaliseWhitespace(beforeText), normaliseWhitespace(currentText));
   let added = [];
