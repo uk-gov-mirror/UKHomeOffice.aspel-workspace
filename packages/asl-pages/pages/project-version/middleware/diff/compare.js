@@ -6,7 +6,19 @@ const parseValue = (val) => {
   if (typeof val === 'string') {
     val = JSON.parse(val || '{}');
   }
-  return Value.fromJSON(val || {});
+  return getText(val.document.nodes);
+};
+
+const getText = (nodes) => {
+  let tempText = '';
+  nodes?.forEach((element) => {
+    if (element?.object === 'block') {
+      tempText += getText(element?.nodes);
+    } else if (element?.object === 'text') {
+      tempText += element.text + ' ';
+    }
+  });
+  return tempText;
 };
 
 // eslint-disable-next-line no-control-regex
@@ -42,9 +54,9 @@ const diff = (a, b, { type, granularity = 'word' }) => {
       }
 
       if (granularity === 'word') {
-        diffs = diffWords(normaliseWhitespace(before.document.text), normaliseWhitespace(after.document.text));
+        diffs = diffWords(normaliseWhitespace(before), normaliseWhitespace(after));
       } else {
-        diffs = diffSentences(normaliseWhitespace(before.document.text), normaliseWhitespace(after.document.text));
+        diffs = diffSentences(normaliseWhitespace(before), normaliseWhitespace(after));
       }
 
       removed = diffs.reduce((arr, d) => {

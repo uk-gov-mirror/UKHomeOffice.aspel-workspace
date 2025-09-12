@@ -26,7 +26,7 @@ const getText = (nodes) => {
     if (element?.object === 'block') {
       tempText += getText(element?.nodes);
     } else if (element?.object === 'text') {
-      tempText += element.text;
+      tempText += element.text + ' ';
     }
   });
   return tempText;

@@ -141,7 +141,7 @@ const DiffWindow = (props) => {
             });
           });
 
-          start += text.text.length;
+          start += text.text.length + 1;
         }
 
       }
