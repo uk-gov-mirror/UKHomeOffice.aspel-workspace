@@ -35,7 +35,7 @@
     "moment": "^2.29.4",
     "objection": "^3.1.5",
     "r2": "^2.0.1",
-    "redis": "^4.5.1",
+    "redis": "^4.7.1",
     "shasum": "^1.0.2",
     "url-search-params": "^1.1.0",
     "uuid-validate": "0.0.3"
