@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@ukhomeoffice/eslint-config-asl": "^3.0.0",
-    "dotenv": "^6.0.0",
+    "dotenv": "^17.2.3",
     "eslint": "^5.16.0",
     "mocha": "^11.7.1",
     "nodemon": "^3.1.10",

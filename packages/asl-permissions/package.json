@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@ukhomeoffice/eslint-config-asl": "^3.0.0",
-    "dotenv": "^6.0.0",
+    "dotenv": "^17.2.3",
     "eslint": "^5.16.0",
     "eslint-plugin-undocumented-env": "^1.0.0",
     "express": "^4.21.2",
