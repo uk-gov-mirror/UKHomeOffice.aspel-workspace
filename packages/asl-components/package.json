@@ -37,7 +37,7 @@
     "govuk-frontend": "^5.8.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
-    "mustache": "^3.0.1",
+    "mustache": "^4.2.0",
     "qs": "^6.6.1",
     "react": "^18.3.1",
     "react-markdown": "^10.1.0",
