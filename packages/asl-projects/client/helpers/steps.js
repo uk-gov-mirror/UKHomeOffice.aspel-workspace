@@ -127,3 +127,49 @@ export const reusableStepFieldKeys = (protocol) => {
 export const getRepeatedFromProtocolIndex = (step, currentProtocolId) => {
   return (step.usedInProtocols || []).length > 0 && step.usedInProtocols[0].protocolId !== currentProtocolId ? step.usedInProtocols[0].protocolNumber : undefined;
 };
+
+export const isStepEmpty = (step = {}) => {
+  const ignoredKeys = [
+    'id',
+    'deleted',
+    'completed',
+    'existingValues',
+    'addExisting',
+    'reusable',
+    'reusableStepId',
+    'usedInProtocols',
+    'reusedStep',
+    'saved',
+    'protocolName',
+    'isStandardProtocol',
+    'standardProtocolType',
+    'isStandard',
+    'standardProtocolsEnabled'
+  ];
+
+  return Object.entries(step)
+    .filter(([key]) => !ignoredKeys.includes(key))
+    .every(([, value]) => {
+      if (value === null || typeof value === 'undefined') {
+        return true;
+      }
+
+      if (typeof value === 'boolean') {
+        return value === false;
+      }
+
+      if (typeof value === 'string') {
+        return value.trim() === '';
+      }
+
+      if (Array.isArray(value)) {
+        return value.length === 0;
+      }
+
+      if (typeof value === 'object') {
+        return Object.keys(value).length === 0;
+      }
+
+      return false;
+    });
+};

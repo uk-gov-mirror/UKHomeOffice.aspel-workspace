@@ -21,7 +21,8 @@ import {
   hydrateSteps,
   removeNewDeleted,
   addDeletedReusableSteps,
-  canRestoreDeletedStep
+  canRestoreDeletedStep,
+  isStepEmpty
 } from '../../../helpers/steps';
 import {
   getProtocolMode,
@@ -277,7 +278,7 @@ class Step extends Component {
 
     const repeatedFrom = getRepeatedFromProtocolIndex(values, protocol.id);
     const canRemoveStep = length > 1 && (!isStandardProtocol || values.optional === true);
-    const showReorderControls = !isStandardProtocol && length > 1;
+    const showReorderControls = !isStandardProtocol && length > 1 && !isStepEmpty(values);
     const showRemoveLink = editable && completed && !deleted && !values.deleted && canRemoveStep;
     const showRestoreLink = values.deleted && restoreDeletedStepsEnabled;
     const stepTitle = values.reference || getStepTitle(values.title);

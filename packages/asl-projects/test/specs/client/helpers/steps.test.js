@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { canRestoreDeletedStep, removeNewDeleted } from '../../../../client/helpers/steps';
+import { canRestoreDeletedStep, isStepEmpty, removeNewDeleted } from '../../../../client/helpers/steps';
 
 describe('canRestoreDeletedStep', () => {
   it('allows restore for standard steps', () => {
@@ -35,6 +35,33 @@ describe('removeNewDeleted', () => {
     });
   });
 
+  describe('isStepEmpty', () => {
+    it('returns true for a step with only metadata fields', () => {
+      assert.equal(isStepEmpty({
+        id: 'step-1',
+        completed: true,
+        deleted: false
+      }), true);
+    });
+
+    it('returns true for a step with blank content fields', () => {
+      assert.equal(isStepEmpty({
+        id: 'step-1',
+        title: '   ',
+        reference: '',
+        adverse: false,
+        endpoints: null
+      }), true);
+    });
+
+    it('returns false when a step has user content', () => {
+      assert.equal(isStepEmpty({
+        id: 'step-1',
+        reference: 'Step 6'
+      }), false);
+    });
+  });
+
   describe('when restore support is enabled', () => {
     it('keeps newly deleted steps so they can be restored', () => {
       const result = removeNewDeleted(steps, previousSteps, true);
@@ -61,4 +88,3 @@ describe('removeNewDeleted', () => {
     });
   });
 });
-
